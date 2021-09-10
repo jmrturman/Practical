@@ -1,8 +1,7 @@
-﻿using Newtonsoft.Json.Linq;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Net;
 
-namespace Practical.Models
+namespace Data.Models
 {
     public class PracticalResult
     {

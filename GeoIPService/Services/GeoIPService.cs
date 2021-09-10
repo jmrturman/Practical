@@ -1,6 +1,6 @@
-﻿using Newtonsoft.Json.Linq;
-using Practical.Models;
-using Practical.Services.Interfaces;
+﻿using Data.Models;
+using GeoIP.Interfaces;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -8,7 +8,7 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 
-namespace Practical.Services
+namespace GeoIP.Services
 {
     public class GeoIPService : IGeoIPService
     {

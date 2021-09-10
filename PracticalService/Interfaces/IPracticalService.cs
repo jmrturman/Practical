@@ -1,10 +1,9 @@
-﻿using Practical.Models;
-using System;
+﻿using Data.Models;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Practical.Services.Interfaces
+namespace MainService.Interfaces
 {
     public interface IPracticalService
     {

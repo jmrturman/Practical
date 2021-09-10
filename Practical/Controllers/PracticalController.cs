@@ -1,8 +1,9 @@
 ﻿using AutoMapper;
+using Data.Models;
+using MainService.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Practical.Models;
-using Practical.Services.Interfaces;
+using PracticalValidation.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 
-namespace Practical.Services.Interfaces
+namespace PracticalValidation.Interfaces
 {
     public interface IPracticalValidationService
     {

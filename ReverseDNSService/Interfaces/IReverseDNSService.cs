@@ -1,9 +1,10 @@
-﻿using System;
+﻿using Data.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Practical.Services.Interfaces
+namespace ReverseDNS.Interfaces
 {
     public interface IReverseDNSService : IServiceBase
     {

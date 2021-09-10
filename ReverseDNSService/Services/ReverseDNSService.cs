@@ -1,12 +1,12 @@
-﻿using Practical.Models;
-using Practical.Services.Interfaces;
+﻿using Data.Models;
+using ReverseDNS.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 
-namespace Practical.Services
+namespace ReverseDNS.Services
 {
     public class ReverseDNSService : IReverseDNSService
     {

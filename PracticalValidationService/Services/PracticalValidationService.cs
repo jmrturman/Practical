@@ -1,12 +1,12 @@
-﻿using Practical.Models;
-using Practical.Services.Interfaces;
+﻿using Data.Models;
+using PracticalValidation.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 
-namespace Practical.Services
+namespace PracticalValidation.Services
 {
     public class PracticalValidationService : IPracticalValidationService
     {

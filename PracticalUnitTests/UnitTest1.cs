@@ -1,7 +1,7 @@
+using GeoIP.Interfaces;
+using GeoIP.Services;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Practical.Models;
-using Practical.Services;
-using Practical.Services.Interfaces;
+
 
 
 namespace PracticalUnitTests

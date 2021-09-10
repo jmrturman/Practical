@@ -1,23 +1,15 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Data\Data.csproj" />
     <ProjectReference Include="..\GeoIPService\GeoIP.csproj" />
     <ProjectReference Include="..\PingService\PingIP.csproj" />
-    <ProjectReference Include="..\PracticalService\MainService.csproj" />
-    <ProjectReference Include="..\PracticalValidationService\PracticalValidation.csproj" />
     <ProjectReference Include="..\RDAPService\RDAP.csproj" />
     <ProjectReference Include="..\ReverseDNSService\ReverseDNS.csproj" />
   </ItemGroup>
-
 
 </Project>

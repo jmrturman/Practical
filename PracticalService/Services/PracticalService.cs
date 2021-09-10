@@ -1,11 +1,15 @@
-﻿using Practical.Models;
-using Practical.Services.Interfaces;
+﻿using Data.Models;
+using GeoIP.Interfaces;
+using MainService.Interfaces;
+using PingIP.Interfaces;
+using RDAP.Interfaces;
+using ReverseDNS.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Practical.Services
+namespace MainService.Services
 {
     public class PracticalService : IPracticalService
     {

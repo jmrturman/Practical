@@ -1,6 +1,5 @@
-﻿
-using Practical.Models;
-using Practical.Services.Interfaces;
+﻿using Data.Models;
+using RDAP.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -8,7 +7,7 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace Practical.Services
+namespace RDAP.Services
 {
     public class RDAPService : IRDAPService
     {

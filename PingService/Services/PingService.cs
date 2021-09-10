@@ -1,13 +1,12 @@
-﻿
-using Practical.Models;
-using Practical.Services.Interfaces;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Net.NetworkInformation;
+using PingIP.Interfaces;
+using Data.Models;
 
-namespace Practical.Services
+namespace PingIP.Services
 {
     public class PingService : IPingService
     {
