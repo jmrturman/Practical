@@ -1,0 +1,18 @@
+{
+	"info": {
+		"_postman_id": "694e9093-a85f-48e1-8833-615daf6d5997",
+		"name": "Practical",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Call Services",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": null
+			},
+			"response": []
+		}
+	]
+}
