@@ -12,7 +12,7 @@ namespace GeoIP.Services
 {
     public class GeoIPService : IGeoIPService
     {
-        public async Task<PracticalResult> LookUp(string ipAddress)
+        public async Task<PracticalResult> LookUp(string ipAddress, PracticalResult result)
         {
             PracticalResult practicalResult = new PracticalResult();
             List<string> interemResults = new List<string>();

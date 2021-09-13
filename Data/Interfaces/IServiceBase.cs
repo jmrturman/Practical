@@ -8,6 +8,6 @@ namespace Data.Interfaces
 {
     public interface IServiceBase
     {
-        Task<PracticalResult> LookUp(string ipAddress);
+        Task<PracticalResult> LookUp(string ipAddress, PracticalResult result);
     }
 }

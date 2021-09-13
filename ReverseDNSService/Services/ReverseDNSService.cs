@@ -18,14 +18,14 @@ namespace ReverseDNS.Services
         {
             _geoIPService = new GeoIPService();
         }
-        public async Task<PracticalResult> LookUp(string ipAddress)
+        public async Task<PracticalResult> LookUp(string ipAddress, PracticalResult result)
         {
             PracticalResult practicalResult = new PracticalResult();
             List<string> interemResults = new List<string>();
             interemResults.Add($"ReverseDNS Results for IPAddress: {ipAddress}");
             try
             {
-                if (ipAddress.Contains(".org") || ipAddress.Contains(".com"))
+                if (result.IPAddress.Equals("domain"))
                 {
                     ipAddress = await GetIPAddressForDomain(ipAddress, interemResults);
                 }
@@ -47,8 +47,7 @@ namespace ReverseDNS.Services
         {
             PracticalResult result = new PracticalResult();
             var ipFromDomain = "";
-            //var ipFromService
-            result = await _geoIPService.LookUp(ipAddress);
+            result = await _geoIPService.LookUp(ipAddress, result);
             if(result != null)
             {
                 ipFromDomain = result.IPAddress;

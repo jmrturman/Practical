@@ -10,7 +10,7 @@ namespace PingIP.Services
 {
     public class PingService : IPingService
     {
-        public async Task<PracticalResult> LookUp(string ipAddress)
+        public async Task<PracticalResult> LookUp(string ipAddress, PracticalResult result)
         {
             
             Ping pinger = null;

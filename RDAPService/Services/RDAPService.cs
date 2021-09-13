@@ -1,4 +1,6 @@
 ﻿using Data.Models;
+using GeoIP.Interfaces;
+using GeoIP.Services;
 using RDAP.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -13,35 +15,53 @@ namespace RDAP.Services
     {
         private readonly IHttpClientFactory _httpClientFactory;
 
+        private readonly IGeoIPService _geoIPService;
+
         public RDAPService(IHttpClientFactory httpClientFactory)
         {
             _httpClientFactory = httpClientFactory ?? throw new ArgumentNullException(nameof(httpClientFactory));
+            _geoIPService = new GeoIPService();
         }
-        public async Task<PracticalResult> LookUp(string ipAddress)
+        public async Task<PracticalResult> LookUp(string ipAddress, PracticalResult result)
         {
             PracticalResult practicalResult = new PracticalResult();
             List<string> interemResults = new List<string>();
             interemResults.Add($"RDAP Results for IPAddress: {ipAddress}");
             var alteredIPAddress = "";
-            if (!ipAddress.Contains(Uri.SchemeDelimiter))
+            var name = "";
+            if (result.Domain.Equals("ipaddress"))
             {
-                alteredIPAddress = string.Concat(Uri.UriSchemeHttp, Uri.SchemeDelimiter, ipAddress);
-            }
-            Uri uri = new Uri(alteredIPAddress);
-            string domain = ipAddress;//uri.Host; // will return www.foo.com
-            if (domain.Contains(".org"))
+                IPAddress hostIPAddress = IPAddress.Parse(ipAddress);
+                //Obsolete IPHostEntry hostInfo = Dns.GetHostByAddress(hostIPAddress);
+                IPHostEntry hostEntry = Dns.GetHostEntry(hostIPAddress);
+                name = hostEntry.HostName;
+                var hstName = name.Split('.');
+                name = hstName[1];
+            }         
+            if (result.IPAddress.Equals("domain"))
             {
-                string url = "https://rdap.publicinterestregistry.net/rdap/org/domain/" + ipAddress;
-                practicalResult = await Task.FromResult(GetPracticalResults(url, interemResults));
-            }else if (domain.Contains(".com"))
-            {
-                var url = "https://rdap.verisign.com/com/v1/domain/" + ipAddress;
-                practicalResult = await Task.FromResult(GetPracticalResults(url, interemResults));
-            }
+                if (ipAddress.Contains(".org"))
+                {
+                    string url = "https://rdap.publicinterestregistry.net/rdap/org/domain/" + ipAddress;
+                    practicalResult = await Task.FromResult(GetPracticalResults(url, interemResults));
+                }
+                if (ipAddress.Contains(".com"))
+                {
+                    string url = "https://rdap.verisign.com/com/v1/domain/" + ipAddress;
+                    practicalResult = await Task.FromResult(GetPracticalResults(url, interemResults));
+                }
+            }           
             else
             {
-                interemResults.Add($"{ipAddress} Appears to be an ip address and does not contain TLD .com or .org");
+                string url = "https://rdap.publicinterestregistry.net/rdap/org/domain/" + name + ".org";
+                practicalResult = await Task.FromResult(GetPracticalResults(url, interemResults));
+                if(interemResults.Count == 1)
+                {
+                    url = "https://rdap.verisign.com/com/v1/domain/" + ipAddress + ".com";
+                    var practicalResultCom = await Task.FromResult(GetPracticalResults(url, interemResults));
+                }           
             }
+       
             practicalResult.IndividualResults = interemResults;
             return practicalResult;               
         }

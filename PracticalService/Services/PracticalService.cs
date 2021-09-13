@@ -31,37 +31,67 @@ namespace MainService.Services
         public async Task<IEnumerable<PracticalResult>> CallServices(string ipAddress, IEnumerable<string> services)
         {
             List<PracticalResult> resultList = new List<PracticalResult>();
+            var result = await GetInitialResult(ipAddress);
+           
+            resultList.Add(result);
+           
             try
             {
-                foreach (var service in services)
+
+                Parallel.ForEach(services, async service =>
                 {
                     switch (service)
                     {
                         case "Reverse DNS":
-                            resultList.Add(await _reverseDNSService.LookUp(ipAddress));
+                            resultList.Add(await _reverseDNSService.LookUp(ipAddress, result));
                             break;
                         case "geoIP":
-                            resultList.Add(await _geoIPService.LookUp(ipAddress));
+                            resultList.Add(await _geoIPService.LookUp(ipAddress, result));
                             break;
                         case "RDAP":
-                            resultList.Add(await _rDAPService.LookUp(ipAddress));
+                            resultList.Add(await _rDAPService.LookUp(ipAddress, result));
                             break;
                         case "Ping":
-                            resultList.Add(await _pingService.LookUp(ipAddress));
+                            resultList.Add(await _pingService.LookUp(ipAddress, result));
                             break;
                         default:
                             break;
                     }
-                }
+                });
+ 
             }
             catch(Exception ex)
             {
-                var yay = $"{ex.Message}";
+                var exceptionPartial = resultList[0];
+                var exceptIndividualResult = exceptionPartial.IndividualResults.ToList();
+                exceptIndividualResult.Add($"There was an error in one or more services: {ex.Message}");
             }
             
             
             return resultList;
         }
 
+        private async Task<PracticalResult> GetInitialResult(string ipAddress)
+        {
+            PracticalResult result = new PracticalResult();
+            result.Name = "Calling Services";
+            if (ipAddress.Contains(".org"))
+            {
+                result.Domain = ipAddress;
+                result.IPAddress = "domain";
+            }
+            else if (ipAddress.Contains(".com"))
+            {
+                result.Domain = ipAddress;
+                result.IPAddress = "domain";
+            }
+            else
+            {
+                result.IPAddress = ipAddress;
+                result.Domain = "ipaddress";
+
+            }
+            return result;
+        }
     }
 }
