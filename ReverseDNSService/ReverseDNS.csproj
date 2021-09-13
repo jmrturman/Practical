@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Data\Data.csproj" />
+    <ProjectReference Include="..\GeoIPService\GeoIP.csproj" />
   </ItemGroup>
 
 </Project>

@@ -22,12 +22,13 @@ namespace RDAP.Services
             PracticalResult practicalResult = new PracticalResult();
             List<string> interemResults = new List<string>();
             interemResults.Add($"RDAP Results for IPAddress: {ipAddress}");
+            var alteredIPAddress = "";
             if (!ipAddress.Contains(Uri.SchemeDelimiter))
             {
-                ipAddress = string.Concat(Uri.UriSchemeHttp, Uri.SchemeDelimiter, ipAddress);
+                alteredIPAddress = string.Concat(Uri.UriSchemeHttp, Uri.SchemeDelimiter, ipAddress);
             }
-            Uri uri = new Uri(ipAddress);
-            string domain = uri.Host; // will return www.foo.com
+            Uri uri = new Uri(alteredIPAddress);
+            string domain = ipAddress;//uri.Host; // will return www.foo.com
             if (domain.Contains(".org"))
             {
                 string url = "https://rdap.publicinterestregistry.net/rdap/org/domain/" + ipAddress;

@@ -31,26 +31,34 @@ namespace MainService.Services
         public async Task<IEnumerable<PracticalResult>> CallServices(string ipAddress, IEnumerable<string> services)
         {
             List<PracticalResult> resultList = new List<PracticalResult>();
-            foreach(var service in services)
+            try
             {
-                switch (service)
+                foreach (var service in services)
                 {
-                    case "Reverse DNS":
-                        resultList.Add(await _reverseDNSService.LookUp(ipAddress));
-                        break;
-                    case "geoIP":
-                        resultList.Add(await _geoIPService.LookUp(ipAddress));
-                        break;
-                    case "RDAP":
-                        resultList.Add(await _rDAPService.LookUp(ipAddress));
-                        break;
-                    case "Ping":
-                        resultList.Add(await _pingService.LookUp(ipAddress));
-                        break;
-                    default:
-                        break;
+                    switch (service)
+                    {
+                        case "Reverse DNS":
+                            resultList.Add(await _reverseDNSService.LookUp(ipAddress));
+                            break;
+                        case "geoIP":
+                            resultList.Add(await _geoIPService.LookUp(ipAddress));
+                            break;
+                        case "RDAP":
+                            resultList.Add(await _rDAPService.LookUp(ipAddress));
+                            break;
+                        case "Ping":
+                            resultList.Add(await _pingService.LookUp(ipAddress));
+                            break;
+                        default:
+                            break;
+                    }
                 }
             }
+            catch(Exception ex)
+            {
+                var yay = $"{ex.Message}";
+            }
+            
             
             return resultList;
         }

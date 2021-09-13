@@ -18,13 +18,17 @@ namespace PracticalValidation.Services
             {
                 ValidateDomain(ipAddress, out isValidInput, out isValid);
             }
-            var splitAddress = ipAddress.Split('.');
-            var firstPositin = splitAddress[0];
-            var tst = Int32.TryParse(firstPositin, out _);
-            if (!(String.IsNullOrEmpty(firstPositin) && Int32.TryParse(firstPositin, out _)))
+            else
             {
-                ValidateIP(ipAddress, out isValidInput, out isValid);
+                var splitAddress = ipAddress.Split('.');
+                var firstPositin = splitAddress[0];
+                var tst = Int32.TryParse(firstPositin, out _);
+                if (!(String.IsNullOrEmpty(firstPositin) && Int32.TryParse(firstPositin, out _)))
+                {
+                    ValidateIP(ipAddress, out isValidInput, out isValid);
+                }
             }
+            
             return isValidInput;
         }
 

@@ -30,7 +30,7 @@ namespace GeoIP.Services
             return practicalResult;
         }
 
-        private PracticalResult GetPracticalResult(string ipAddress, List<string> interemResults)
+        public PracticalResult GetPracticalResult(string ipAddress, List<string> interemResults)
         {
             PracticalResult practicalResult = new PracticalResult();
 
@@ -38,7 +38,7 @@ namespace GeoIP.Services
             var accessKey = "a40d53a1299a134875027bd903c911c9";
             string url = "http://api.ipstack.com/" + ipAddress + "?access_key=" + accessKey;
             var request = System.Net.WebRequest.Create(url);
-
+            string actualIP = "";
             using (WebResponse wrs = request.GetResponse())
             {
                 using Stream stream = wrs.GetResponseStream();
@@ -47,11 +47,13 @@ namespace GeoIP.Services
                 var obj = JObject.Parse(json);                
                 string City = (string)obj["city"];
                 string Country = (string)obj["region_name"];
+                actualIP = (string)obj["ip"];
                 interemResults.Add($"Country: {Country}");
                 interemResults.Add($"City: {City}");
-                interemResults.Add($"Raw JSON from RDAP: {{ {json} }} ");
+                interemResults.Add($"Raw JSON from geoIP: {{ {json} }} ");
             }
             practicalResult.IndividualResults = interemResults;
+            practicalResult.IPAddress = actualIP;
             return practicalResult;
         }
 

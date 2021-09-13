@@ -1,4 +1,6 @@
 ﻿using Data.Models;
+using GeoIP.Interfaces;
+using GeoIP.Services;
 using ReverseDNS.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -10,6 +12,12 @@ namespace ReverseDNS.Services
 {
     public class ReverseDNSService : IReverseDNSService
     {
+        private readonly IGeoIPService _geoIPService;
+
+        public ReverseDNSService()
+        {
+            _geoIPService = new GeoIPService();
+        }
         public async Task<PracticalResult> LookUp(string ipAddress)
         {
             PracticalResult practicalResult = new PracticalResult();
@@ -17,6 +25,10 @@ namespace ReverseDNS.Services
             interemResults.Add($"ReverseDNS Results for IPAddress: {ipAddress}");
             try
             {
+                if (ipAddress.Contains(".org") || ipAddress.Contains(".com"))
+                {
+                    ipAddress = await GetIPAddressForDomain(ipAddress, interemResults);
+                }
                 //credit https://stackoverflow.com/questions/716748/reverse-ip-domain-check
                 IPAddress hostIPAddress = IPAddress.Parse(ipAddress);
                 //Obsolete IPHostEntry hostInfo = Dns.GetHostByAddress(hostIPAddress);
@@ -29,6 +41,19 @@ namespace ReverseDNS.Services
                 practicalResult.IndividualResults = interemResults;
             }           
             return practicalResult;
+        }
+
+        private async Task<string> GetIPAddressForDomain(string ipAddress, List<string> interemResults)
+        {
+            PracticalResult result = new PracticalResult();
+            var ipFromDomain = "";
+            //var ipFromService
+            result = await _geoIPService.LookUp(ipAddress);
+            if(result != null)
+            {
+                ipFromDomain = result.IPAddress;
+            }
+            return ipFromDomain;        
         }
 
         private string GetAliases(IEnumerable<string> aliases)
