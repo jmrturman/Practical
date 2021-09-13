@@ -6,11 +6,112 @@
 	},
 	"item": [
 		{
-			"name": "Call Services",
+			"name": "Call Services IP",
+			"protocolProfileBehavior": {
+				"strictSSL": false
+			},
 			"request": {
 				"method": "GET",
 				"header": [],
-				"url": null
+				"url": {
+					"raw": "https://localhost:44343/api/services/8.8.8.8/",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44343",
+					"path": [
+						"api",
+						"services",
+						"8.8.8.8",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Call Services Domain",
+			"protocolProfileBehavior": {
+				"strictSSL": false
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:44343/api/services/google.com/",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44343",
+					"path": [
+						"api",
+						"services",
+						"google.com",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Call Services IP ServiceList",
+			"protocolProfileBehavior": {
+				"strictSSL": false
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:44343/api/services/8.8.8.8?geoIP,Ping",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44343",
+					"path": [
+						"api",
+						"services",
+						"8.8.8.8"
+					],
+					"query": [
+						{
+							"key": "geoIP,Ping",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Call Services Domain ServiceList",
+			"protocolProfileBehavior": {
+				"strictSSL": false
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:44343/api/services/google.com?geoIP,Ping",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44343",
+					"path": [
+						"api",
+						"services",
+						"google.com"
+					],
+					"query": [
+						{
+							"key": "geoIP,Ping",
+							"value": null
+						}
+					]
+				}
 			},
 			"response": []
 		}
