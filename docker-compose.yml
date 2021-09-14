@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  practical:
+    image: ${DOCKER_REGISTRY-}practical
+    build:
+      context: .
+      dockerfile: Practical\Dockerfile
